@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({entended: false}));
 
 app.use('/api/goals', require("./routes/goalRoutes")); // if api/goals is hit, it will look into the goalRoutes file
+app.use('/api/users', require("./routes/userRoutes"));
 
 app.use(errorHandler); // overwrite default express error handler
 

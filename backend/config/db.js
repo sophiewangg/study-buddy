@@ -6,7 +6,7 @@ const connectDB = async () => { //since all mongoose methods are async
         console.log(`mongoDB connected: ${conn.connection.host}`.cyan.underline);
     } catch (err) {
         console.log(error);
-        process.exit(1); //export process with error
+        process.exit(1); //exit process with error
     }
 }
 

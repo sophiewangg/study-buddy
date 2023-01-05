@@ -34,7 +34,7 @@ function Dashboard() {
         <h1> Welcome { user && user.name} </h1>
         <p> Goals Dashboard </p>
       </section>
-      <Timer/>
+      {/* <Timer/> */}
       <GoalForm/>
       <section className="content">
         {

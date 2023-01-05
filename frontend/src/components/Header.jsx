@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FaSignInAlt, FaSignOutAlt, FaUser, FaSlidersH, FaChartBar } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +8,7 @@ import Modal from './Modal';
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
     const { user } = useSelector((state) => state.auth);
 
     const onLogout = () => {
@@ -24,17 +26,19 @@ function Header() {
             {user ? (
             <> 
                 <li> 
-                    <Link to='/stats'>
+                    <button className='btn' onClick={()=> setIsOpen(true)} >
                         <FaChartBar /> Stats
-                    </Link>
+                    </button>
+                    <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
+                    {/* <Link to='/stats'>
+                        <FaChartBar /> Stats
+                    </Link> */}
                 </li> 
                 <li> 
-                    <button className='btn'>
+                    <button className='btn' onClick={()=> setIsOpen(true)} >
                         <FaSlidersH /> Settings
                     </button>
-                    <Modal> 
-                        <p>coming soon!</p>
-                    </Modal>
+                    <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
                 </li> 
                 <li>
                     <button className='btn' onClick={onLogout}>
@@ -44,11 +48,6 @@ function Header() {
             </>
             ) : (
             <>
-                <li> 
-                    <Link to='/stats'>
-                        <FaSlidersH /> Settings
-                    </Link>
-                </li> 
                 <li>
                     <Link to='/login'>
                         <FaSignInAlt /> Login
@@ -59,6 +58,12 @@ function Header() {
                         <FaUser /> Register
                     </Link>
                 </li>
+                <li> 
+                    <button className='btn' onClick={()=> setIsOpen(true)} >
+                        <FaSlidersH /> Settings
+                    </button>
+                    <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
+                </li> 
             </>
             )}
         </ul>

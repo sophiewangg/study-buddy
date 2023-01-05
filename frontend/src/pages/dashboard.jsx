@@ -44,7 +44,7 @@ function Dashboard() {
         <h1> Welcome </h1>
         <p> Goals Dashboard </p>
       </section>
-      <Timer/>
+      {/* <Timer/> */}
       <GoalForm addGoal={addGoal}/> 
       <section className="content">
       {

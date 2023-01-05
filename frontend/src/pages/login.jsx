@@ -47,7 +47,7 @@ function Login () {
             <h1>
               <FaSignInAlt /> Login
             </h1>
-            <p>Login and see where you left off!</p>
+            <p>Login and continue where you left off!</p>
           </section>
     
           <section className='form'>

@@ -100,7 +100,7 @@ h3 {
   position: relative;
 }
 
-.goal .close {
+.close {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -213,4 +213,26 @@ h3 {
   .heading p {
     font-size: 1.5rem;
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 50px;
+  z-index: 1000;
+
 }

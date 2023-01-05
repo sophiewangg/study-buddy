@@ -8,7 +8,7 @@ function Timer() {
 
     const [isPaused, setIsPaused] = useState(true);
     const [remainingSeconds, setRemainingSeconds] = useState(sessionSeconds);
-    const isPausedRef = useRef(isPaused);
+    const isPausedRef = useRef(isPaused); //useRef so that no re-render occurs when value is updated
     const remainingSecondsRef = useRef(remainingSeconds);
     
     const tick = () => {
@@ -25,7 +25,7 @@ function Timer() {
         if (!isPausedRef) {
             const intervalId = setInterval(() => {
                 tick();
-                if (remainingSeconds <= 0) {
+                if (remainingSecondsRef <= 0) {
                     setIsPaused(true);
                     dispatch(switchMode());
                     dispatch(getTimerMinutes());
@@ -37,6 +37,7 @@ function Timer() {
 
     const displayedMinutes = Math.floor(remainingSeconds/60);
     const displayedSeconds = remainingSeconds % 60 < 10 ? `0${remainingSeconds % 60}` : remainingSeconds % 60;
+    
     return (
         <div>
             <p> {`${displayedMinutes} : ${displayedSeconds}`}</p>

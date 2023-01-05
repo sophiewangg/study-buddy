@@ -23,7 +23,7 @@ function Register() {
     
     useEffect(()=> {
         if (isError) toast.error(message);
-        if (isSuccess || user) navigate('/');
+        if (isSuccess || user) navigate('/myDashboard');
         dispatch(reset());
     }, [user, isError, isSuccess, message, navigate, dispatch])
 
@@ -53,7 +53,7 @@ function Register() {
             <h1>
               <FaUser /> Register
             </h1>
-            <p>Please create an account</p>
+            <p>Create an account to save your progress!</p>
           </section>
     
           <section className='form'>

@@ -18,7 +18,7 @@ function Login () {
 
     useEffect(()=> {
         if (isError) toast.error(message);
-        if (isSuccess || user) navigate('/');
+        if (isSuccess || user) navigate('/myDashboard');
         dispatch(reset());
     }, [user, isError, isSuccess, message, navigate, dispatch])
     
@@ -47,7 +47,7 @@ function Login () {
             <h1>
               <FaSignInAlt /> Login
             </h1>
-            <p>Login and start studying</p>
+            <p>Login and see where you left off!</p>
           </section>
     
           <section className='form'>

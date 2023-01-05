@@ -1,47 +1,57 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import GoalForm from "../components/GoalForm";
 import GoalItem from "../components/GoalItem";
-import Spinner from "../components/Spinner";
-import { getGoals, reset } from "../features/goals/goalSlice";
+import Timer from "../components/Timer";
 
 function Dashboard() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { goals, isLoading, isError, message} = useSelector((state) => state.goals);
 
-  useEffect(() => {
-    if (isError) console.log(message);
-    if (!user) navigate('/login');
-
-    dispatch(getGoals());
-
-    return () => { //cleanup function
-      // dispatch(reset());
+  const [goals, setGoals] = useState([]);
+  const [text, setText] = useState('');
+  
+  const addGoal = (goal) => {
+    if (!goal || /^\s*$/.test(goal)) {
+      return;
     }
-  }, [user, navigate, isError, message, dispatch])
-
-  if (isLoading) {
-    return <Spinner/>
+    const time = Date.now();
+    const newGoals = [{goal, time}, ...goals];
+    setGoals(newGoals);
   }
 
-  console.log(`goals: ${goals}`);
+  const updateGoal = (goalId, newValue) => {
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
+    setGoals(prev => prev.map(goal => (goal.id === goalId ? newValue : goal)));
+  };
+
+  const removeGoal = goalId => {
+    const removedArr = [...goals].filter(goal => goal.Id !== goalId);
+    setGoals(removedArr);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addGoal(text);
+    console.log(goals);
+    setText('');
+} 
+
+  //console.log(goals);
 
   return (
     <>
       <section className="heading">
-        <h1> Welcome { user && user.name} </h1>
+        <h1> Welcome </h1>
         <p> Goals Dashboard </p>
       </section>
-      <GoalForm/>
+      <Timer/>
+      <GoalForm addGoal={addGoal}/> 
       <section className="content">
-        {
+      {
           goals.length > 0 ? (
             <div className="goals">
-            { goals && goals.map((goal) => {
-              return <GoalItem key={goal._id} goal={goal}/>
+            { goals.map(({goal, time}) => {
+              return <GoalItem key={time} goal={goal} removeGoal={removeGoal}/>
             })}
           </div> 
           ) : (<h3> You have not set any goals </h3>) 

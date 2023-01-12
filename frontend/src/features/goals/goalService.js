@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = '/api/goals/';
 
 //create new goal
-const createGoal = async (goalData, token) => {
+const createGoalDB = async (goalData, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ const createGoal = async (goalData, token) => {
 }
 
 //get user goals
-const getGoals  = async (token) => {
+const getGoalsDB  = async (token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -24,8 +24,19 @@ const getGoals  = async (token) => {
     return response.data;
 }
 
+//update user goal
+const updateGoalDB = async(goalId, goalData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    const response = await axios.put(API_URL + goalId, goalData, config);
+    return response.data;
+}
+
 //delete user goal 
-const deleteGoal  = async (goalId, token) => {
+const deleteGoalDB  = async (goalId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -36,9 +47,10 @@ const deleteGoal  = async (goalId, token) => {
 }
 
 const goalService = {
-    createGoal,
-    getGoals,
-    deleteGoal,
+    createGoalDB,
+    getGoalsDB,
+    updateGoalDB,
+    deleteGoalDB,
 }
 
 export default goalService;

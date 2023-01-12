@@ -1,11 +1,15 @@
+import styled from 'styled-components';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import GoalForm from "../components/GoalForm";
 import GoalItem from "../components/GoalItem";
 import Spinner from "../components/Spinner";
-import { getGoals } from "../features/goals/goalSlice";
+import { getGoalsDB } from "../features/goals/goalSlice";
 import Timer from "../components/Timer";
+
+import { Heading1, HeadingContainer } from '../ui/heading';
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -17,7 +21,7 @@ function Dashboard() {
     if (isError) console.log(message);
     if (!user) navigate('/login');
 
-    dispatch(getGoals());
+    dispatch(getGoalsDB());
 
     // return () => { //cleanup function
     //   dispatch(reset());
@@ -30,25 +34,30 @@ function Dashboard() {
 
   return (
     <>
-      <section className="heading">
-        <h1> Welcome { user && user.name} </h1>
-        <p> Goals Dashboard </p>
-      </section>
+      <HeadingContainer>
+        <Heading1> Welcome { user && user.name} </Heading1>
+        <p> Set some goals and start studying! </p>
+      </HeadingContainer>
       {/* <Timer/> */}
       <GoalForm/>
-      <section className="content">
+      <GoalDisplay>
         {
-          goals.length > 0 ? (
-            <div className="goals">
+          goals.length > 0 && (
+            <div>
             { goals && goals.map((goal) => {
               return <GoalItem key={goal._id} goal={goal}/>
             })}
           </div> 
-          ) : (<h3> You have not set any goals </h3>) 
+          )
         }
-      </section>
+      </GoalDisplay>
     </>
   )
 }
 
-export default Dashboard
+export default Dashboard;
+
+const GoalDisplay = styled.div`
+  width: 70%;
+  margin: 0 auto;
+`;

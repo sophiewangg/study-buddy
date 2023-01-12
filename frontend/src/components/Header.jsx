@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
 import Modal from './Modal';
 
+import { PurpleButton } from '../ui/button';
+
 function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -26,24 +28,24 @@ function Header() {
             {user ? (
             <> 
                 <li> 
-                    <button className='btn' onClick={()=> setIsOpen(true)} >
+                    <PurpleButton onClick={()=> setIsOpen(true)} >
                         <FaChartBar /> Stats
-                    </button>
+                    </PurpleButton>
                     <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
                     {/* <Link to='/stats'>
                         <FaChartBar /> Stats
                     </Link> */}
                 </li> 
                 <li> 
-                    <button className='btn' onClick={()=> setIsOpen(true)} >
+                    <PurpleButton onClick={()=> setIsOpen(true)} >
                         <FaSlidersH /> Settings
-                    </button>
+                    </PurpleButton>
                     <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
                 </li> 
                 <li>
-                    <button className='btn' onClick={onLogout}>
+                    <PurpleButton onClick={onLogout}>
                         <FaSignOutAlt /> Logout
-                    </button>
+                    </PurpleButton>
                 </li>
             </>
             ) : (
@@ -59,9 +61,9 @@ function Header() {
                     </Link>
                 </li>
                 <li> 
-                    <button className='btn' onClick={()=> setIsOpen(true)} >
+                    <PurpleButton onClick={()=> setIsOpen(true)} >
                         <FaSlidersH /> Settings
-                    </button>
+                    </PurpleButton>
                     <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}/>
                 </li> 
             </>

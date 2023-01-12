@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import {FaSignInAlt} from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { login, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
+
+import { Heading1, HeadingContainer } from '../ui/heading';
+import { FormWrapper, InputField, SubmitButton } from '../ui/form';
 
 function Login () {
     const [formData, setFormData] = useState({
@@ -43,47 +45,48 @@ function Login () {
 
     return (
         <>
-          <section className='heading'>
-            <h1>
-              <FaSignInAlt /> Login
-            </h1>
+          <HeadingContainer>
+            <Heading1>
+              Login
+            </Heading1>
             <p>Login and continue where you left off!</p>
-          </section>
+          </HeadingContainer>
     
-          <section className='form'>
-            <form onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
+          <FormWrapper onSubmit={onSubmit}>
+              <div>
+                <InputField
+                  fullWidth
+                  required
                   type='email'
-                  className='form-control'
                   id='email'
                   name='email'
                   value={email}
-                  placeholder='Enter your email'
+                  label="Enter email" variant="outlined"
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
+              <div>
+                <InputField
+                  fullWidth
+                  required
                   type='password'
                   autoComplete="current-password"
-                  className='form-control'
                   id='password'
                   name='password'
                   value={password}
-                  placeholder='Enter password'
+                  label ='Enter password'
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <button type='submit' className='btn btn-block'>
+              <div>
+                <SubmitButton type='submit'>
                   Submit
-                </button>
+                </SubmitButton>
               </div>
-            </form>
-          </section>
+          </FormWrapper>
         </>
       )
 }
 
 export default Login;
+

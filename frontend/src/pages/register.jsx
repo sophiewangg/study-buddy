@@ -6,6 +6,9 @@ import { FaUser } from 'react-icons/fa';
 import { register, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
 
+import { Heading1, HeadingContainer } from '../ui/heading';
+import { InputField, FormWrapper, SubmitButton } from '../ui/form';
+
 function Register() {
     const [formData, setFormData] = useState({
         name: "",
@@ -49,67 +52,71 @@ function Register() {
 
     return (
         <>
-          <section className='heading'>
-            <h1>
-              <FaUser /> Register
-            </h1>
+          <HeadingContainer>
+            <Heading1>
+              Register
+            </Heading1>
             <p>Create an account to save your progress!</p>
-          </section>
+          </HeadingContainer>
     
-          <section className='form'>
-            <form onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
+          <section >
+            <FormWrapper onSubmit={onSubmit}>
+              <div >
+                <InputField
+                  fullWidth
+                  required
                   type='text'
-                  className='form-control'
                   id='name'
                   name='name'
                   value={name}
-                  placeholder='Enter your name'
+                  label='Enter your name'
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
+              <div >
+                <InputField
+                  fullWidth
+                  required
                   type='email'
-                  className='form-control'
                   id='email'
                   name='email'
                   value={email}
-                  placeholder='Enter your email'
+                  label='Enter your email'
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
+              <div >
+                <InputField
+                  fullWidth
+                  required
                   type='password'
                   autoComplete="new-password"
-                  className='form-control'
                   id='password'
                   name='password'
                   value={password}
-                  placeholder='Enter password'
+                  label='Enter password'
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <input
+              <div>
+                <InputField
+                  fullWidth
+                  required
                   type='password'
                   autoComplete="new-password"
-                  className='form-control'
                   id='password2'
                   name='password2'
                   value={password2}
-                  placeholder='Confirm password'
+                  label='Confirm password'
                   onChange={onChange}
                 />
               </div>
-              <div className='form-group'>
-                <button type='submit' className='btn btn-block'>
+              <div >
+                <SubmitButton type='submit'>
                   Submit
-                </button>
+                </SubmitButton>
               </div>
-            </form>
+            </FormWrapper>
           </section>
         </>
       )

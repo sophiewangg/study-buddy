@@ -1,7 +1,10 @@
+import styled from 'styled-components';
 import { useState } from "react";
 import GoalForm from "../components/GoalForm";
 import GoalItem from "../components/GoalItem";
 import Timer from "../components/Timer";
+
+import { Heading1, HeadingContainer } from '../ui/heading';
 
 function Dashboard() {
 
@@ -29,6 +32,7 @@ function Dashboard() {
     setGoals(removedArr);
   };
 
+
   const onSubmit = (e) => {
     e.preventDefault();
     addGoal(text);
@@ -40,25 +44,30 @@ function Dashboard() {
 
   return (
     <>
-      <section className="heading">
-        <h1> Welcome </h1>
-        <p> Goals Dashboard </p>
-      </section>
+      <HeadingContainer>
+        <Heading1> Welcome </Heading1>
+        <p> Set some goals and start studying! </p>
+      </HeadingContainer>
       {/* <Timer/> */}
       <GoalForm addGoal={addGoal}/> 
-      <section className="content">
+      <GoalDisplay>
       {
-          goals.length > 0 ? (
+          goals.length > 0 && (
             <div className="goals">
             { goals.map(({goal, time}) => {
-              return <GoalItem key={time} goal={goal} removeGoal={removeGoal}/>
+              return <GoalItem key={time} goal={goal} updateGoal={updateGoal} removeGoal={removeGoal}/>
             })}
           </div> 
-          ) : (<h3> You have not set any goals </h3>) 
+          )
         }
-      </section>
+      </GoalDisplay>
     </>
   )
 }
 
-export default Dashboard
+export default Dashboard;
+
+const GoalDisplay = styled.div`
+  width: 70%;
+  margin: 0 auto;
+`;

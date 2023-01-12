@@ -1,6 +1,9 @@
+import styled from 'styled-components';
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createGoal } from "../features/goals/goalSlice";
+import { createGoalDB } from "../features/goals/goalSlice";
+
+import { InputField, FormWrapper, SubmitButton } from '../ui/form';
 
 function GoalForm({ addGoal }) {
 
@@ -11,23 +14,19 @@ function GoalForm({ addGoal }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (user) dispatch(createGoal({text}));
+        if (!text || /^\s*$/.test(text)) return
+        if (user) dispatch(createGoalDB({text}));
         else addGoal({text}); 
         setText('');
     }
 
   return (
-    <section className="form">
-        <form onSubmit={onSubmit}>
-            <div className="form-group">
-                <input type="text" name="text" id="text" placeholder="Enter your goals" value={text} onChange={(e)=>{ setText(e.target.value)}}/>
-            </div>
-            <div className="form-group">
-                <button className="btn btn-block" type="submit">Add goal</button>
-            </div>
-        </form>
-    </section>
+    <FormWrapper onSubmit={onSubmit}>
+            {/* is it bad to setState right in onClick thing? also don't make goal if thing is blank */}
+            <InputField fullWidth id="text" name="text" label="Enter your goals" variant="outlined" value={text} onChange={(e)=>{ setText(e.target.value)}}/>
+            <SubmitButton type="submit">Add goal</SubmitButton>
+    </FormWrapper>
   )
 }
 
-export default GoalForm
+export default GoalForm;

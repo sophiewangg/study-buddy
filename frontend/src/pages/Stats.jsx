@@ -1,9 +1,5 @@
 function Stats() {
-  return (
-    <section className='heading'>
-        coming soon! 
-    </section>
-  )
+  return <section className="heading">coming soon!</section>;
 }
 
-export default Stats
+export default Stats;

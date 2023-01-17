@@ -1,46 +1,34 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { useState } from "react";
 import GoalForm from "../components/GoalForm";
 import GoalItem from "../components/GoalItem";
-import Timer from "../components/Timer";
 
-import { Heading1, HeadingContainer } from '../ui/heading';
+import { Heading1, HeadingContainer } from "../ui/heading";
 
 function Dashboard() {
-
   const [goals, setGoals] = useState([]);
-  const [text, setText] = useState('');
-  
-  const addGoal = (goal) => {
-    if (!goal || /^\s*$/.test(goal)) {
-      return;
-    }
-    const time = Date.now();
-    const newGoals = [{goal, time}, ...goals];
-    setGoals(newGoals);
-  }
 
-  const updateGoal = (goalId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
-    }
-    setGoals(prev => prev.map(goal => (goal.id === goalId ? newValue : goal)));
+  // front-end only functions that occur when user is not signed in
+  const addGoal = (goal) => {
+    const id = Date.now();
+    const newGoals = [{ goal, id }, ...goals];
+    setGoals(newGoals);
   };
 
-  const removeGoal = goalId => {
-    const removedArr = [...goals].filter(goal => goal.Id !== goalId);
+  const deleteGoal = ({ id }) => {
+    const removedArr = goals.filter((goal) => goal.id !== id);
     setGoals(removedArr);
   };
 
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    addGoal(text);
-    console.log(goals);
-    setText('');
-} 
-
-  //console.log(goals);
+  const updateGoal = (text, goal) => {
+    console.log(goal);
+    if (!text || /^\s*$/.test(text)) return;
+    setGoals(
+      goals.map((goalItem) => {
+        return (goalItem = goalItem.id === goal.id ? { ...goalItem, goal: text } : goalItem);
+      })
+    );
+  };
 
   return (
     <>
@@ -48,21 +36,25 @@ function Dashboard() {
         <Heading1> Welcome </Heading1>
         <p> Set some goals and start studying! </p>
       </HeadingContainer>
-      {/* <Timer/> */}
-      <GoalForm addGoal={addGoal}/> 
+      <GoalForm goals={goals} addGoal={addGoal} />
       <GoalDisplay>
-      {
-          goals.length > 0 && (
-            <div className="goals">
-            { goals.map(({goal, time}) => {
-              return <GoalItem key={time} goal={goal} updateGoal={updateGoal} removeGoal={removeGoal}/>
+        {goals.length > 0 && (
+          <div className="goals">
+            {goals.map(({ goal, id }) => {
+              return (
+                <GoalItem
+                  key={id}
+                  goal={{ goal: goal, id: id }}
+                  deleteGoal={deleteGoal}
+                  updateGoal={updateGoal}
+                />
+              );
             })}
-          </div> 
-          )
-        }
+          </div>
+        )}
       </GoalDisplay>
     </>
-  )
+  );
 }
 
 export default Dashboard;

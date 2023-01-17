@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     goals: goalReducer,
-    timer: timerReducer,
-  },
+    timer: timerReducer
+  }
 });

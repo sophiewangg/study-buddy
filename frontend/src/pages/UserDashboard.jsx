@@ -1,23 +1,25 @@
-import styled from 'styled-components';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import GoalForm from '../components/GoalForm';
-import GoalItem from '../components/GoalItem';
-import Spinner from '../components/Spinner';
-import { getGoalsDB } from '../features/goals/goalSlice';
+import styled from "styled-components";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import GoalForm from "../components/GoalForm";
+import GoalItem from "../components/GoalItem";
+import Spinner from "../components/Spinner";
+import { getGoalsDB } from "../features/goals/goalSlice";
 
-import { Heading1, HeadingContainer } from '../ui/heading';
+import { Heading1, HeadingContainer } from "../ui/heading";
 
 function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { goals, isLoading, isError, message } = useSelector((state) => state.goals);
+  const { goals, isLoading, isError, message } = useSelector(
+    (state) => state.goals
+  );
 
   useEffect(() => {
     if (isError) console.log(message);
-    if (!user) navigate('/login');
+    if (!user) navigate("/login");
 
     dispatch(getGoalsDB());
 
@@ -25,11 +27,12 @@ function Dashboard() {
     //   dispatch(reset());
     // }
   }, [user, navigate, isError, message, dispatch]);
-
+  
   if (isLoading) {
     return <Spinner />;
   }
 
+  console.log(goals);
   return (
     <>
       <HeadingContainer>

@@ -18,7 +18,7 @@ function GoalItem({ goal, updateGoal, deleteGoal }) {
     e.preventDefault();
     setIsEditing(!isEditing);
     if (isEditing) {
-      if (user) dispatch(updateGoalDB(goal._id, goal));
+      if (user) dispatch(updateGoalDB({goalId: goal._id, text: {goalData: text}}));
       else updateGoal(text, goal);
     }
   };
@@ -35,42 +35,36 @@ function GoalItem({ goal, updateGoal, deleteGoal }) {
   return (
     <Goal isFinished={isFinished}>
       {isEditing ? (
-        <div>
-          <form onSubmit={onUpdate}>
+          <Form onSubmit={onUpdate}>
             <InputField
-              fullWidth
-              id="text"
-              name="text"
-              label="Update your goal"
-              variant="outlined"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-            />
+                fullWidth
+                id="text"
+                name="text"
+                label="Update your goal"
+                variant="outlined"
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
             <ButtonContainer>
               <GoalButton type="submit">
-                {' '}
-                <EditIcon />{' '}
+                <EditIcon />
               </GoalButton>
               <GoalButton onClick={onDelete}>
-                {' '}
-                <DeleteIcon />{' '}
+                <DeleteIcon />
               </GoalButton>
             </ButtonContainer>
-          </form>
-        </div>
+          </Form>
       ) : (
         <>
           <p onClick={onClick}> {goal.text ?? goal.goal} </p>
           <ButtonContainer>
             <GoalButton onClick={onUpdate}>
-              {' '}
-              <EditIcon />{' '}
+              <EditIcon />
             </GoalButton>
             <GoalButton onClick={onDelete}>
-              {' '}
-              <DeleteIcon />{" "}
+              <DeleteIcon />
             </GoalButton>
           </ButtonContainer>
         </>
@@ -89,9 +83,9 @@ const Goal = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  width: 100%;
   opacity: ${({ isFinished }) => (isFinished ? "0.5" : "1")};
   text-decoration: ${({ isFinished }) => (isFinished ? "line-through" : "")};
-
   &:hover {
     transform: scale(0.99);
   }
@@ -103,6 +97,11 @@ const GoalButton = styled.button`
   margin: 0 8px;
   cursor: pointer;
 `;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+`
 
 const ButtonContainer = styled.div`
   display: flex;

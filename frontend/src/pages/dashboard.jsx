@@ -21,7 +21,6 @@ function Dashboard() {
   };
 
   const updateGoal = (text, goal) => {
-    console.log(goal);
     if (!text || /^\s*$/.test(text)) return;
     setGoals(
       goals.map((goalItem) => {
@@ -39,7 +38,7 @@ function Dashboard() {
       <GoalForm goals={goals} addGoal={addGoal} />
       <GoalDisplay>
         {goals.length > 0 && (
-          <div className="goals">
+          <div>
             {goals.map(({ goal, id }) => {
               return (
                 <GoalItem
@@ -61,5 +60,6 @@ export default Dashboard;
 
 const GoalDisplay = styled.div`
   width: 70%;
+  min-width: 400px;
   margin: 0 auto;
 `;
